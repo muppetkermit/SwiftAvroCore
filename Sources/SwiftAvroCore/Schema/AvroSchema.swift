@@ -198,17 +198,17 @@ public enum AvroSchema: Codable, Hashable {
 
 /// structure to encode and decode record in json
 public struct RecordSchema : Equatable, NameSchemaProtocol {
-    var name: String?
-    var namespace: String?
-    var type: String
-    var fields: [FieldSchema]
-    var aliases: Set<String>?
-    let doc: String?
+    public var name: String?
+    public var namespace: String?
+    public var type: String
+    public var fields: [FieldSchema]
+    public var aliases: Set<String>?
+    public let doc: String?
     private enum CodingKeys: CodingKey {
         case name, type, namespace, aliases, fields, doc
     }
     
-    var resolution: ResolutionMethod = .useDefault
+    public var resolution: ResolutionMethod = .useDefault
     
     public mutating func addField(_ field: AvroSchema) {
         fields.append(FieldSchema(name: field.getName()!, type: field, doc: nil, order: nil, aliases: nil, defaultValue: nil, optional: nil))
@@ -228,24 +228,24 @@ public struct RecordSchema : Equatable, NameSchemaProtocol {
 
 /// structure to encode and decode fields in json
 public struct FieldSchema : Equatable, Codable {
-    let name: String
-    var type: AvroSchema
-    let doc: String?
-    let order: String?
-    let aliases: [String]?
-    let defaultValue: String?
-    let optional: Bool?
-    var resolution: ResolutionMethod = .useDefault
+    public let name: String
+    public var type: AvroSchema
+    public let doc: String?
+    public let order: String?
+    public let aliases: [String]?
+    public let defaultValue: String?
+    public let optional: Bool?
+    public var resolution: ResolutionMethod = .useDefault
 }
 /// structure to encode and decode enum in json
 public struct EnumSchema : Equatable, NameSchemaProtocol {
-    var name: String?
-    var namespace: String?
-    var type: String
-    var aliases: Set<String>?
-    let doc: String?
-    var symbols: [String]
-    var resolution: ResolutionMethod = .useDefault
+    public var name: String?
+    public var namespace: String?
+    public var type: String
+    public var aliases: Set<String>?
+    public let doc: String?
+    public var symbols: [String]
+    public var resolution: ResolutionMethod = .useDefault
     
     private enum CodingKeys: CodingKey {
         case name, type, namespace, aliases, symbols, doc
@@ -254,9 +254,9 @@ public struct EnumSchema : Equatable, NameSchemaProtocol {
 
 /// structure to encode and decode array in json
 public struct ArraySchema : Equatable, Codable {
-    let type: String
-    var items: AvroSchema
-    var resolution: ResolutionMethod = .useDefault
+    public let type: String
+    public var items: AvroSchema
+    public var resolution: ResolutionMethod = .useDefault
     
     private enum CodingKeys: CodingKey {
         case type, items
@@ -265,9 +265,9 @@ public struct ArraySchema : Equatable, Codable {
 
 /// structure to encode and decode map in json
 public struct MapSchema : Equatable, Codable {
-    let type: String
-    var values: AvroSchema
-    var resolution: ResolutionMethod = .useDefault
+    public let type: String
+    public var values: AvroSchema
+    public var resolution: ResolutionMethod = .useDefault
     private enum CodingKeys: CodingKey {
         case type, values
     }
@@ -275,15 +275,15 @@ public struct MapSchema : Equatable, Codable {
 
 /// structure to encode and decode fixed in json
 public struct FixedSchema : Equatable, NameSchemaProtocol {
-    var name: String? = nil
-    var namespace: String? = nil
-    var type: String = "fixed"
-    var aliases: Set<String>? = nil
-    var logicalType: LogicalType? = nil /// must be "duration/decimal" if set, the size of duration must be 12
-    var size: Int = 0
-    var precision: Int? = nil
-    var scale: Int? = nil
-    var resolution: ResolutionMethod = .useDefault
+    public var name: String? = nil
+    public var namespace: String? = nil
+    public var type: String = "fixed"
+    public var aliases: Set<String>? = nil
+    public var logicalType: LogicalType? = nil /// must be "duration/decimal" if set, the size of duration must be 12
+    public var size: Int = 0
+    public var precision: Int? = nil
+    public var scale: Int? = nil
+    public var resolution: ResolutionMethod = .useDefault
     private enum CodingKeys: CodingKey {
         case name, type, namespace, aliases, size, logicalType, precision, scale
     }
@@ -323,11 +323,11 @@ public struct FixedSchema : Equatable, NameSchemaProtocol {
 
 /// structure to encode and decode bytes in json
 public struct BytesSchema : Equatable, Codable {
-    var type:String = "bytes"
+    public var type:String = "bytes"
     /// for logic decimal type
-    var logicalType: LogicalType? = nil //must be "decimal" if set
-    var precision: Int? = nil
-    var scale: Int? = nil
+    public var logicalType: LogicalType? = nil //must be "decimal" if set
+    public var precision: Int? = nil
+    public var scale: Int? = nil
     
     init(){}
     init(logicalType: LogicalType, precision: Int, scale: Int) {
@@ -350,10 +350,10 @@ public struct BytesSchema : Equatable, Codable {
 
 /// structure to encode and decode int, logic date and millis in json
 public struct UnionSchema : Equatable, Codable {
-    var name: String?
-    let optional: String?
+    public var name: String?
+    public let optional: String?
     /// for logic decimal type
-    var branches: [AvroSchema]//can be <"date"/"time-millis">
+    public var branches: [AvroSchema]//can be <"date"/"time-millis">
     init(branches: [AvroSchema]) {
         self.name = nil
         self.optional = nil
@@ -369,9 +369,9 @@ public struct UnionSchema : Equatable, Codable {
 /// structure to encode and decode int, logic date and millis in json
 /// or long, logic time-micros, timestamp-millis
 public struct IntSchema : Equatable, Codable {
-    let type:String
+    public let type:String
     /// for logic decimal type
-    var logicalType: LogicalType? = nil//can be <"date"/"time-millis">
+    public var logicalType: LogicalType? = nil//can be <"date"/"time-millis">
     init() {
         self.type = "int"
         self.logicalType = nil
@@ -387,11 +387,11 @@ public struct IntSchema : Equatable, Codable {
 }
     
 public struct UnknownSchema:NameSchemaProtocol{
-    var type: String
-    var name: String?
-    var namespace: String?
-    var aliases: Set<String>?
-    var resolution: AvroSchema.ResolutionMethod
+    public var type: String
+    public var name: String?
+    public var namespace: String?
+    public var aliases: Set<String>?
+    public var resolution: AvroSchema.ResolutionMethod
     init(_ typeName: String) {
         self.type = ""
         name = typeName
@@ -407,21 +407,21 @@ public struct UnknownSchema:NameSchemaProtocol{
         resolution = .useDefault
     }
 }
-    struct StringCodingKey: CodingKey {
-        var intValue: Int?
-        
-        let stringValue: String
-        
-        init?(stringValue: String) {
-            self.stringValue = stringValue
-            self.intValue = Int(stringValue)
-        }
-        
-        init?(intValue: Int) {
-            self.stringValue = "\(intValue)"
-            self.intValue = intValue
-        }
+struct StringCodingKey: CodingKey {
+    var intValue: Int?
+
+    let stringValue: String
+
+    init?(stringValue: String) {
+        self.stringValue = stringValue
+        self.intValue = Int(stringValue)
     }
+
+    init?(intValue: Int) {
+        self.stringValue = "\(intValue)"
+        self.intValue = intValue
+    }
+}
 public typealias ErrorSchema = RecordSchema
 // structure to encode and decode record in json
 /*public struct ProtocolSchema : Equatable, NameSchemaProtocol {
