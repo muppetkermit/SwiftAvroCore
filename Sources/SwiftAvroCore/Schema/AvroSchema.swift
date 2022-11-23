@@ -46,7 +46,7 @@ public enum AvroSchema: Codable, Hashable {
     /// invalid type
     case unknownSchema(UnknownSchema)
     
-    internal enum LogicalType: String, Codable {
+    public enum LogicalType: String, Codable {
         case decimal, date,
         timeMillis = "time-millis", timeMicros = "time-micros",
         timestampMillis = "timestamp-millis", timestampMicros = "timestamp-micros", duration
@@ -463,7 +463,7 @@ struct RequestType: Equatable, Codable {
     let type: String
 }
 */
-enum ResolutionMethod: Int, Codable {
+public enum ResolutionMethod: Int, Codable {
     case useDefault
     case accept
     case skip
